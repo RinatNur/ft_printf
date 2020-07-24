@@ -6,7 +6,7 @@
 /*   By: jheat <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 17:22:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/22 19:53:40 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/24 16:51:35 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@ struct		s_format
 	int zero;
 	int width;
 	int prec;
+	int point;
 	char type;
+	int count;
 }					t;
 
-int 	ft_printf(const char *format, ...);
+int			ft_printf(const char *format, ...);
+void		ft_type_parser(const char *format, va_list ap, int *i);
+void		ft_prec_parser(const char *format, va_list ap, int *i);
+void		ft_width_parser(const char *format, va_list ap, int *i);
+void		ft_flags_parser(const char *format, int *i);
+void		ft_parser(const char *format, va_list ap, int *i);
 
 #endif
