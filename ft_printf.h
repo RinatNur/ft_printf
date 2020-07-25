@@ -6,7 +6,7 @@
 /*   By: jheat <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 17:22:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/24 16:51:35 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/25 18:06:02 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include "./libft/libft.h"
 #include <stdarg.h>
 
+# define INT_MIN -2147483648
+
 struct		s_format
 {
 	int minus;
@@ -26,6 +28,10 @@ struct		s_format
 	int point;
 	char type;
 	int count;
+	int X;
+	int int_minus;
+	int prec_less_lenght;
+	int j_print;
 }					t;
 
 int			ft_printf(const char *format, ...);

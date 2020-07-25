@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:02:39 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/24 20:18:29 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/25 20:32:23 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ static void            ft_struct_zero()
 	t.width = 0;
 	t.prec = 0;
 	t.point = 0;
+	t.j_print = 0;
+	t.X = 0;
+	t.int_minus = 0;
+	t. prec_less_lenght = 0;
 	t.type = '\0';
 }
 
@@ -35,6 +39,7 @@ void			ft_type_parser(const char *format, va_list ap, int *i)
 {
 	if (!t.type && (ft_strchr("cspdiuxX%", format[*i])))
 		t.type = (format[*i]);
+	t.X = (format[*i] == 'X') ? 1 : 0;
 }
 
 void         ft_prec_parser(const char *format, va_list ap, int *i)
@@ -147,25 +152,25 @@ static void        ft_xtoi(unsigned long x)
 		ft_xtoi(x/16);
 	tmp = x % 16 + '0';
 	if(tmp == (10 + '0'))
-		tmp = 'a';
+		tmp = (t.X == 1) ? 'A' : 'a';
 	else if(tmp == (11 + '0'))
-		tmp = 'b';
+		tmp = (t.X == 1) ? 'B' : 'b';
 	else if(tmp == (12 + '0'))
-		tmp = 'c';
+		tmp = (t.X == 1) ? 'C' : 'c';
 	else if(tmp == (13 + '0'))
-		tmp = 'd';
+		tmp = (t.X == 1) ? 'D' : 'd';
 	else if(tmp == (14 + '0'))
-		tmp = 'e';
+		tmp = (t.X == 1) ? 'E' : 'e';
 	else if(tmp == (15 + '0'))
-		tmp = 'f';
+		tmp = (t.X == 1) ? 'F' : 'f';
 	t.count += write(1, &tmp , 1);
 }
 
-static int			ft_num_len(unsigned long num, int div)
+static int			ft_num_len(int num, int div) // убрал unsigned. возможно где-то ошибка выйдет
 {
 	int		len;
 
-	len = 1;
+	len = (num < 0) ? 2 : 1;
 	while ((num /= div))
 		len++;
 	return (len);
@@ -210,7 +215,7 @@ void		ft_putnbr(int n)
 		t.count += write(1, "-2147483648", 11);
 	else if (n < 0)
 	{
-		t.count += write(1, "-", 1);
+//		t.count += write(1, "-", 1);
 		ft_putnbr(n * (-1));
 	}
 	else
@@ -222,45 +227,150 @@ void		ft_putnbr(int n)
 	}
 }
 
+void ft_print_space_and_zero(int num, int len, char print_sym, int putnbr_flag)
+{
+	if (putnbr_flag == 1)
+	{
+		if (t.int_minus == 1 && t.prec_less_lenght == 1)
+			t.count += write(1, "-", 1);
+		ft_putnbr(num);
+	}
+
+	if (print_sym == '0')
+	{
+		t.count += write(1, "-", 1);
+		t.j_print--;
+	}
+//	len = (!t.minus && t.width && t.prec_less_lenght == 0) ? (len + 1) : len;
+	while (t.j_print++ < (t.width - len))
+		t.count += write(1, &print_sym, 1);
+	if (putnbr_flag == 2)
+	{
+		if (t.int_minus == 1 && t.prec_less_lenght == 1)
+			t.count += write(1, "-", 1);
+		ft_putnbr(num);
+	}
+}
+
 void 	ft_print_integer(va_list ap)
 {
 	int 	num;
 	int 	lenght;
-	int 	j;
 
-	j = 0;
 	num = va_arg(ap, int);
 	lenght = ft_num_len(num, 10);
+	t.prec_less_lenght = (t.prec < lenght) ? 1 : 0;
+	if (num < 0)
+		t.int_minus = 1;
+	if (t.prec_less_lenght == 0 && t.width)
+		t.width--;
 	t.width = (t.prec > t.width) ? t.prec : t.width;
-	lenght = (t.prec > lenght) ? t.prec : lenght;
-//	if (t.prec > lenght)
-//		lenght += t.prec - lenght;
-//10,17,18
+	if (!t.minus && (!t.prec || t.prec <= lenght))
+		ft_print_space_and_zero(num, lenght, ' ', 2);
+	else if (t.minus && (!t.prec || t.prec <= lenght))
+		ft_print_space_and_zero(num, lenght, ' ', 1);
+	//15, 19
+	else if(t.prec > lenght && !t.minus)
+	{
+		ft_print_space_and_zero(num, t.prec, ' ', 0);
+		ft_print_space_and_zero(num, lenght - 1, '0', 2);
+	}
+	//16
+	else if (t.prec > lenght && t.minus)
+	{
+		ft_print_space_and_zero(num, ((t.width - t.prec) + lenght), '0', 2);
+		ft_print_space_and_zero(num, lenght - 1, ' ', 0);
+	}
+}
+
+void ft_print_space_and_zero_xx(unsigned int num, int len, char print_sym, int putnbr_flag)
+{
+	if (putnbr_flag == 1)
+		ft_xtoi(num);
+	while (t.j_print++ < (t.width - len))
+		t.count += write(1, &print_sym, 1);
+	if (putnbr_flag == 2)
+		ft_xtoi(num);
+}
+
+void 	ft_print_xx(va_list ap)
+{
+	unsigned int 		u;
+	int 	j;
+	int		lenght;
+
+	j = 0;
+	u = va_arg(ap, unsigned int);
+	lenght = ft_num_len(u, 16);
+	t.width = (t.prec > t.width) ? t.prec : t.width;
 	if (!t.width && (!t.prec || t.prec <= lenght))
-		ft_putnbr(num);
-	else if (!t.minus)
+		ft_xtoi(u);
+	else if (!t.minus && (!t.prec || t.prec <= lenght))
 	{
-		while (j++ < (t.width - lenght))
+		while (j++ < (t.width - (lenght)))
 			t.count += write(1, " ", 1);
-		if (t.prec > lenght)
-			while (j++ < (t.width - lenght + 1))
-				t.count += write(1, "0", 1);
-		ft_putnbr(num);
+		ft_xtoi(u);
 	}
-	else if (t.minus)
+	else if (t.minus && (!t.prec || t.prec <= lenght))
 	{
-		if (t.prec > lenght)
-			while (j++ < (t.prec - lenght))
-				t.count += write(1, "0", 1);
-		ft_putnbr(num);
-		while (j++ < (t.width - lenght))
+		ft_xtoi(u);
+		while (j++ < (t.width - (lenght)))
 			t.count += write(1, " ", 1);
 	}
-//	else if (t.prec)
-//	{
-//
-//
-//	}
+	else if(t.prec > lenght && !t.minus)
+	{
+		ft_print_space_and_zero_xx(u, t.prec, ' ', 0);
+		ft_print_space_and_zero_xx(u, lenght - 1, '0', 2);
+	}
+	else if (t.prec > lenght && t.minus)
+	{
+		ft_print_space_and_zero_xx(u, ((t.width - t.prec) + lenght), '0', 2);
+		ft_print_space_and_zero_xx(u, lenght - 1, ' ', 0);
+	}
+}
+
+void		ft_putnbr_un(unsigned int n)
+{
+	char 	c;
+
+	c = 0;
+	if (n > 9)
+		ft_putnbr_un(n / 10);
+	c = n % 10 + '0';
+	t.count += write(1, &c, 1);
+}
+
+void ft_print_space_and_zero_un(unsigned int num, int len, char print_sym, int putnbr_flag)
+{
+	if (putnbr_flag == 1)
+		ft_putnbr(num);
+	while (t.j_print++ < (t.width - len))
+		t.count += write(1, &print_sym, 1);
+	if (putnbr_flag == 2)
+		ft_putnbr(num);
+}
+
+void 	ft_print_unsigned(va_list ap)
+{
+	int 	num;
+	int 	lenght;
+
+	lenght = ft_num_len((num = va_arg(ap, int)), 10);
+	t.width = (t.prec > t.width) ? t.prec : t.width;
+	if (!t.minus && (!t.prec || t.prec <= lenght))
+		ft_print_space_and_zero_un(num, lenght, ' ', 2);
+	else if (t.minus && (!t.prec || t.prec <= lenght))
+		ft_print_space_and_zero_un(num, lenght, ' ', 1);
+	else if(t.prec > lenght && !t.minus)
+	{
+		ft_print_space_and_zero_un(num, t.prec, ' ', 0);
+		ft_print_space_and_zero_un(num, lenght - 1, '0', 2);
+	}
+	else if (t.prec > lenght && t.minus)
+	{
+		ft_print_space_and_zero_un(num, ((t.width - t.prec) + lenght), '0', 2);
+		ft_print_space_and_zero_un(num, lenght - 1, ' ', 0);
+	}
 }
 
 static void 		ft_check_type(va_list ap)
@@ -273,8 +383,10 @@ static void 		ft_check_type(va_list ap)
 		ft_print_pointer(ap);
 	if (t.type == 'd' || t.type == 'i')
 		ft_print_integer(ap);
-
-
+	if (t.type == 'u')
+		ft_print_unsigned(ap);
+	if (t.type == 'x' || t.type == 'X')
+		ft_print_xx(ap);
 }
 
 int        ft_printf(const char *format, ...)
