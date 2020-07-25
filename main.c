@@ -6,7 +6,7 @@
 /*   By: jheat <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 17:21:52 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/25 20:27:31 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/25 20:32:35 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,55 +21,55 @@ int		main()
 	int 		i = 3456;
 
 // Integer (-)
-	count = ft_printf("10.**%d**", -555);
+	count = ft_printf("10.**%d %p %x %s**", -555, &st, 123, output);
 	printf("     count = %i\n", count - 4);
-	count = printf("10.**%d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("11.**%10d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("11.**%10d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("12.**%-10d**", -555);
-	printf("     count = %i\n", count - 7);
-	count = printf("12.**%-10d**", -555);
-	printf("     count = %i\n", count - 7);
-
-	count = ft_printf("13.**%10.2d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("13.**%10.2d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("14.**%-10.2d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("14.**%-10.2d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("15.**%10.8d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("15.**%10.8d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("16.**%-10.5d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("16.**%-10.5d**", -555);
+	count = printf("10.**%d %p %x %s**", -555, &st, 123, output);
 	printf("     count = %i\n", count - 4);
 //
-	count = ft_printf("17.**%.d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("17.**%.d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("18.**%.2d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("18.**%.2d**", -555);
-	printf("     count = %i\n", count - 4);
-
-	count = ft_printf("19.**%.5d**", -555);
-	printf("     count = %i\n", count - 4);
-	count = printf("19.**%.5d**", -555);
-	printf("     count = %i\n", count - 4);
+//	count = ft_printf("11.**%10d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("11.**%10d**", -555);
+//	printf("     count = %i\n", count - 4);
+//
+//	count = ft_printf("12.**%-10d**", -555);
+//	printf("     count = %i\n", count - 7);
+//	count = printf("12.**%-10d**", -555);
+//	printf("     count = %i\n", count - 7);
+//
+//	count = ft_printf("13.**%10.2d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("13.**%10.2d**", -555);
+//	printf("     count = %i\n", count - 4);
+//
+//	count = ft_printf("14.**%-10.2d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("14.**%-10.2d**", -555);
+//	printf("     count = %i\n", count - 4);
+//
+//	count = ft_printf("15.**%10.8d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("15.**%10.8d**", -555);
+//	printf("     count = %i\n", count - 4);
+//
+//	count = ft_printf("16.**%-10.5d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("16.**%-10.5d**", -555);
+//	printf("     count = %i\n", count - 4);
+////
+//	count = ft_printf("17.**%.d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("17.**%.d**", -555);
+//	printf("     count = %i\n", count - 4);
+//
+//	count = ft_printf("18.**%.2d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("18.**%.2d**", -555);
+//	printf("     count = %i\n", count - 4);
+//
+//	count = ft_printf("19.**%.5d**", -555);
+//	printf("     count = %i\n", count - 4);
+//	count = printf("19.**%.5d**", -555);
+//	printf("     count = %i\n", count - 4);
 
 	//u
 //	count = ft_printf("30.**%u**", 555);

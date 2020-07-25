@@ -15,9 +15,9 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
-# include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 typedef struct		s_list
 {
