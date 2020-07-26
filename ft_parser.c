@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parser.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 16:06:00 by jheat             #+#    #+#             */
+/*   Updated: 2020/07/26 18:19:49 by jheat            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "ft_printf.h"
 
-void			ft_type_parser(const char *format, va_list ap, int *i)
+void			ft_type_parser(const char *format, int *i)
 {
 	if (!t.type && (ft_strchr("cspdiuxX%", format[*i])))
 		t.type = (format[*i]);
@@ -17,6 +30,8 @@ void         ft_prec_parser(const char *format, va_list ap, int *i)
 		else if (format[(*i) + 1] == '*')
 			t.prec = va_arg(ap, int);
 	}
+//	if (t.prec < 0)
+//		t.prec = 0;
 }
 
 void         ft_width_parser(const char *format, va_list ap, int *i)
@@ -43,7 +58,7 @@ void		ft_parser(const char *format, va_list ap, int *i)
 		ft_flags_parser(format, i);
 		ft_width_parser(format, ap, i);
 		ft_prec_parser(format, ap, i);
-		ft_type_parser(format, ap, i);
+		ft_type_parser(format, i);
 		(*i)++;
 	}
 	(*i)--;

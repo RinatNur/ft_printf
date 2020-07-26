@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_xx.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 16:06:26 by jheat             #+#    #+#             */
+/*   Updated: 2020/07/26 21:09:38 by jheat            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "ft_printf.h"
 
 void ft_print_space_and_zero_xx(unsigned int num, int len, char print_sym, int putnbr_flag)
 {
 	if (putnbr_flag == 1)
-		ft_xtoi(num);
+		ft_xtoi(num, 0);
 	while (t.j_print++ < (t.width - len))
 		t.count += write(1, &print_sym, 1);
 	if (putnbr_flag == 2)
-		ft_xtoi(num);
+		ft_xtoi(num, 0);
 }
 
 int			ft_num_len_un(int num, int div)
@@ -31,16 +44,16 @@ void 	ft_print_xx(va_list ap)
 	lenght = ft_num_len_un(u, 16);
 	t.width = (t.prec > t.width) ? t.prec : t.width;
 	if (!t.width && (!t.prec || t.prec <= lenght))
-		ft_xtoi(u);
+		ft_xtoi(u, 0);
 	else if (!t.minus && (!t.prec || t.prec <= lenght))
 	{
 		while (j++ < (t.width - (lenght)))
 			t.count += write(1, " ", 1);
-		ft_xtoi(u);
+		ft_xtoi(u, 0);
 	}
 	else if (t.minus && (!t.prec || t.prec <= lenght))
 	{
-		ft_xtoi(u);
+		ft_xtoi(u, 0);
 		while (j++ < (t.width - (lenght)))
 			t.count += write(1, " ", 1);
 	}

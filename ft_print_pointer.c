@@ -1,11 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_pointer.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 16:05:47 by jheat             #+#    #+#             */
+/*   Updated: 2020/07/26 21:09:07 by jheat            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "ft_printf.h"
 
-void        ft_xtoi(unsigned long x)
+int		ft_xtoi(unsigned long x, int flag)
 {
-	char   tmp;
+	char		tmp;
+	static int			count;  // проблема в статике !!!!!!!!!!!!!!!!!!!!!
 
 	if (x >= 16)
-		ft_xtoi(x/16);
+		ft_xtoi(x/16, flag);
 	tmp = x % 16 + '0';
 	if(tmp == (10 + '0'))
 		tmp = (t.X == 1) ? 'A' : 'a';
@@ -19,7 +33,11 @@ void        ft_xtoi(unsigned long x)
 		tmp = (t.X == 1) ? 'E' : 'e';
 	else if(tmp == (15 + '0'))
 		tmp = (t.X == 1) ? 'F' : 'f';
-	t.count += write(1, &tmp , 1);
+	if (flag == 0)
+		t.count += write(1, &tmp , 1);
+	else
+		count ++;
+	return (count);
 }
 
 int			ft_num_len(int num, int div) // убрал unsigned. возможно где-то ошибка выйдет
@@ -32,6 +50,18 @@ int			ft_num_len(int num, int div) // убрал unsigned. возможно гд
 	return (len);
 }
 
+//int			ft_num_len_hex(unsigned long num) // убрал unsigned. возможно где-то ошибка выйдет
+//{
+//	int		len;
+//	int 	hex;
+//
+//	hex = ft_xtoi(num, 1);
+//	len = (hex < 0) ? 2 : 1;
+//	while ((hex /= 16))
+//		len++;
+//	return (len);
+//}
+
 void 		ft_print_pointer(va_list ap)
 {
 	unsigned long		p;
@@ -40,23 +70,23 @@ void 		ft_print_pointer(va_list ap)
 
 	j = 0;
 	p = va_arg(ap, unsigned long);
-	lenght = ft_num_len(p, 16);
+	lenght = ft_xtoi(p, 1);;
 	if (!t.width)
 	{
 		t.count += write(1, "0x", 2);
-		ft_xtoi(p);
+		ft_xtoi(p, 0);
 	}
 	else if (!t.minus)
 	{
 		while (j++ < (t.width - (lenght + 2)))
 			t.count += write(1, " ", 1);
 		t.count += write(1, "0x", 2);
-		ft_xtoi(p);
+		ft_xtoi(p, 0);
 	}
 	else if (t.minus)
 	{
 		t.count += write(1, "0x", 2);
-		ft_xtoi(p);
+		ft_xtoi(p, 0);
 		while (j++ < (t.width - (lenght + 2)))
 			t.count += write(1, " ", 1);
 	}
