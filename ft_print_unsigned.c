@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:20 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/26 16:06:57 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 17:05:00 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ void		ft_putnbr_un(unsigned int n)
 
 void ft_print_space_and_zero_un(unsigned int num, int len, char print_sym, int putnbr_flag)
 {
-	if (putnbr_flag == 1)
-		ft_putnbr(num);
+	t.zero = (t.point == 1) ? 0 : t.zero;
+	if (t.zero == 1)
+		print_sym = '0';
+	if (putnbr_flag == 1 && (!t.point || (t.point && t.prec != 0)))
+		ft_putnbr_un(num);
 	while (t.j_print++ < (t.width - len))
 		t.count += write(1, &print_sym, 1);
-	if (putnbr_flag == 2)
-		ft_putnbr(num);
+	if (putnbr_flag == 2 && (!t.point || (t.point && t.prec != 0)))
+		ft_putnbr_un(num);
 }
 
 void 	ft_print_unsigned(va_list ap)
@@ -40,6 +43,8 @@ void 	ft_print_unsigned(va_list ap)
 	int 	lenght;
 
 	lenght = ft_num_len((num = va_arg(ap, int)), 10);
+	if (t.point && t.prec == 0)
+		lenght = 0;
 	t.width = (t.prec > t.width) ? t.prec : t.width;
 	if (!t.minus && (!t.prec || t.prec <= lenght))
 		ft_print_space_and_zero_un(num, lenght, ' ', 2);

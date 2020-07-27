@@ -6,7 +6,7 @@
 /*   By: jheat <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 17:21:52 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/26 20:06:11 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 22:15:13 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int		main()
 {
-	char		*str = "**%5.2s**";
-	char 		*output = "str";
-	char 		*st = "strwr", a01,a02,a03,a04,a05,a06,a07,a08,a09,a10,a11,a12;
+	char		*str = "**%.*s**";
+	int 		i = -8473;
+	unsigned int  u = 0;
 	int 		count;
-	int 		i = 3456;
 
 // Integer (-)
-	count = ft_printf("%15p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	count = ft_printf("%-*.*s", -7, -3, "yolo");
 	printf("     count = %i\n", count);
-	count = printf("%15p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);
+	count = printf("%-*.*s", -7, -3, "yolo");
 	printf("     count = %i\n", count);
 //
 //	count = ft_printf("11.**%10d**", -555);

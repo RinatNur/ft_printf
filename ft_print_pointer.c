@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:05:47 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/26 21:09:07 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 19:07:03 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@
 int		ft_xtoi(unsigned long x, int flag)
 {
 	char		tmp;
-	static int			count;  // проблема в статике !!!!!!!!!!!!!!!!!!!!!
-
+	if ((t.point == 1 && t.prec == 0) && x == 0)
+	{
+		if (t.width > 0)
+			t.count += write(1, " " , 1);
+		return (0);
+	}
 	if (x >= 16)
 		ft_xtoi(x/16, flag);
 	tmp = x % 16 + '0';
@@ -36,11 +40,11 @@ int		ft_xtoi(unsigned long x, int flag)
 	if (flag == 0)
 		t.count += write(1, &tmp , 1);
 	else
-		count ++;
-	return (count);
+		t.hex_len_count++;
+	return (t.hex_len_count);
 }
 
-int			ft_num_len(int num, int div) // убрал unsigned. возможно где-то ошибка выйдет
+int			ft_num_len(int num, int div)
 {
 	int		len;
 
@@ -49,18 +53,6 @@ int			ft_num_len(int num, int div) // убрал unsigned. возможно гд
 		len++;
 	return (len);
 }
-
-//int			ft_num_len_hex(unsigned long num) // убрал unsigned. возможно где-то ошибка выйдет
-//{
-//	int		len;
-//	int 	hex;
-//
-//	hex = ft_xtoi(num, 1);
-//	len = (hex < 0) ? 2 : 1;
-//	while ((hex /= 16))
-//		len++;
-//	return (len);
-//}
 
 void 		ft_print_pointer(va_list ap)
 {

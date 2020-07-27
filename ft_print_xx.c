@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:26 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/26 21:09:38 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 19:01:55 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 void ft_print_space_and_zero_xx(unsigned int num, int len, char print_sym, int putnbr_flag)
 {
+	t.zero = (t.point == 1) ? 0 : t.zero;
+	if (t.zero == 1)
+		print_sym = '0';
 	if (putnbr_flag == 1)
 		ft_xtoi(num, 0);
 	while (t.j_print++ < (t.width - len))
@@ -45,17 +48,13 @@ void 	ft_print_xx(va_list ap)
 	t.width = (t.prec > t.width) ? t.prec : t.width;
 	if (!t.width && (!t.prec || t.prec <= lenght))
 		ft_xtoi(u, 0);
-	else if (!t.minus && (!t.prec || t.prec <= lenght))
+	else if (!t.minus && (!t.prec || (t.prec <= lenght)))
 	{
-		while (j++ < (t.width - (lenght)))
-			t.count += write(1, " ", 1);
-		ft_xtoi(u, 0);
+		ft_print_space_and_zero_xx(u, lenght, ' ', 2);
 	}
 	else if (t.minus && (!t.prec || t.prec <= lenght))
 	{
-		ft_xtoi(u, 0);
-		while (j++ < (t.width - (lenght)))
-			t.count += write(1, " ", 1);
+		ft_print_space_and_zero_xx(u, lenght, ' ', 1);
 	}
 	else if(t.prec > lenght && !t.minus)
 	{

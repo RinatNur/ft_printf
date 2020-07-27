@@ -6,27 +6,29 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:02:39 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/26 16:20:00 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 22:43:33 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void            ft_struct_zero()
+void		ft_struct_zero(void)
 {
 	t.minus = 0;
 	t.zero = 0;
 	t.width = 0;
 	t.prec = 0;
+	t.prec_minus = 0;
 	t.point = 0;
 	t.j_print = 0;
 	t.X = 0;
 	t.int_minus = 0;
 	t.prec_less_lenght = 0;
+	t.hex_len_count = 0;
 	t.type = '\0';
 }
 
-void 		ft_check_type(va_list ap)
+void		ft_check_type(va_list ap)
 {
 	if (t.type == '%')
 		ft_print_percent();
@@ -44,27 +46,25 @@ void 		ft_check_type(va_list ap)
 		ft_print_xx(ap);
 }
 
-int        ft_printf(const char *format, ...)
+int			ft_printf(const char *format, ...)
 {
-	int         i;
-	int         count;
-	va_list     ap;
+	va_list		ap;
+	int			i;
 
 	t.count = 0;
 	i = 0;
-	count = 0;
 	va_start(ap, format);
-	while(format[i])
+	while (format[i])
 	{
-		if (format[i] != '%' )
-			t.count += write (1, &format[i], 1);
+		if (format[i] != '%')
+			t.count += write(1, &format[i], 1);
 		else if (format[i] == '%')
 		{
 			ft_struct_zero();
 			ft_parser(format, ap, &i);
 			ft_check_type(ap);
 		}
-		if(format[i])
+		if (format[i])
 			i++;
 	}
 	va_end(ap);

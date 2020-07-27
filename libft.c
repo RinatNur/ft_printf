@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:43 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/26 16:06:57 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 21:32:55 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,19 @@ int		ft_isdigit(int c)
 	return (('0' <= c) && (c <= '9'));
 }
 
-void		ft_putnbr(int n)
+int		ft_putnbr(int n)
 {
 	char 	c;
+	if ((t.point == 1 && t.prec == 0) && n == 0)
+	{
+		if (t.width > 0)
+			t.count += write(1, " " , 1);
+		return (0);
+	}
 
 	c = 0;
 	if (n == INT_MIN)
-		t.count += write(1, "-2147483648", 11);
+		t.count += write(1, "2147483648", 10);
 	else if (n < 0)
 		ft_putnbr(n * (-1));
 	else
@@ -91,4 +97,5 @@ void		ft_putnbr(int n)
 		c = n % 10 + '0';
 		t.count += write(1, &c, 1);
 	}
+	return (0);
 }
