@@ -6,18 +6,17 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:00 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/27 22:33:50 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 22:54:13 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_printf.h"
 
-void			ft_type_parser(const char *format, int *i)
+void		ft_type_parser(const char *format, int *i)
 {
 	if (!t.type && (ft_strchr("cspdiuxX%", format[*i])))
 		t.type = (format[*i]);
-	t.X = (format[*i] == 'X') ? 1 : 0;
+	t.xx = (format[*i] == 'X') ? 1 : 0;
 	if (t.prec < 0 && t.type == 's')
 	{
 		t.prec = 0;
@@ -25,7 +24,7 @@ void			ft_type_parser(const char *format, int *i)
 	}
 }
 
-void         ft_prec_parser(const char *format, va_list ap, int *i)
+void		ft_prec_parser(const char *format, va_list ap, int *i)
 {
 	if (!t.prec && format[*i] == '.')
 	{
@@ -34,16 +33,10 @@ void         ft_prec_parser(const char *format, va_list ap, int *i)
 			t.prec = ft_atoi(&format[++(*i)]);
 		else if (format[(*i) + 1] == '*')
 			t.prec = va_arg(ap, int);
-//		t.prec = (t.prec < 0) ? 0 : t.prec;
 	}
-//		if (t.prec < 0)
-//		{
-//			t.prec = 0;
-//			t.prec_minus = 1;
-//		}
 }
 
-void         ft_width_parser(const char *format, va_list ap, int *i)
+void		ft_width_parser(const char *format, va_list ap, int *i)
 {
 	if (format[*i] == '*' && !t.width && !t.prec && !t.point)
 		t.width = va_arg(ap, int);
@@ -56,11 +49,11 @@ void         ft_width_parser(const char *format, va_list ap, int *i)
 	}
 }
 
-void         ft_flags_parser(const char *format, int *i)
+void		ft_flags_parser(const char *format, int *i)
 {
-	if(format[*i] == '-' && !t.width)
+	if (format[*i] == '-' && !t.width)
 		t.minus = 1;
-	if(format[*i] == '0' && !t.zero && !t.width)
+	if (format[*i] == '0' && !t.zero && !t.width)
 		t.zero = 1;
 }
 

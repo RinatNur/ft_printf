@@ -6,7 +6,7 @@
 /*   By: jheat <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 17:21:52 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/27 22:15:13 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 22:59:47 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		main()
 	int 		count;
 
 // Integer (-)
-	count = ft_printf("%-*.*s", -7, -3, "yolo");
+	count = ft_printf("%x", 123);
 	printf("     count = %i\n", count);
 	count = printf("%-*.*s", -7, -3, "yolo");
 	printf("     count = %i\n", count);
@@ -120,7 +120,7 @@ int		main()
 //	printf("     count = %i\n", count - 4);
 //	count = printf("39.**%.5u**", 555);
 //	printf("     count = %i\n", count - 4);
-//X
+//xx
 //	count = ft_printf("21.**%10x**", 555);
 //	printf("     count = %i\n", count - 4);
 //	count = printf("21.**%10x**", 555);

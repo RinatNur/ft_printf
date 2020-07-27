@@ -6,14 +6,13 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:43 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/27 21:32:55 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 22:56:39 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "ft_printf.h"
 
-int		ft_atoi(const char *str)
+int			ft_atoi(const char *str)
 {
 	int		i;
 	int		sign;
@@ -70,21 +69,21 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-int		ft_isdigit(int c)
+int			ft_isdigit(int c)
 {
 	return (('0' <= c) && (c <= '9'));
 }
 
-int		ft_putnbr(int n)
+int			ft_putnbr(int n)
 {
-	char 	c;
+	char		c;
+
 	if ((t.point == 1 && t.prec == 0) && n == 0)
 	{
 		if (t.width > 0)
-			t.count += write(1, " " , 1);
+			t.count += write(1, " ", 1);
 		return (0);
 	}
-
 	c = 0;
 	if (n == INT_MIN)
 		t.count += write(1, "2147483648", 10);

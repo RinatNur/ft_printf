@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:02:39 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/27 22:43:33 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/27 22:44:27 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		ft_struct_zero(void)
 	t.prec_minus = 0;
 	t.point = 0;
 	t.j_print = 0;
-	t.X = 0;
+	t.xx = 0;
 	t.int_minus = 0;
 	t.prec_less_lenght = 0;
 	t.hex_len_count = 0;
