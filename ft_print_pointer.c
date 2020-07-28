@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:05:47 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 15:55:04 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/28 18:42:31 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,10 @@ int				ft_xtoi(unsigned long x)
 	return (0);
 }
 
-int				ft_xtoi_len(unsigned long x)
+static int		ft_len_hex(unsigned long x)
 {
-	char		tmp;
-
 	if (x >= 16)
-		ft_xtoi_len(x / 16);
-	tmp = x % 16 + '0';
-	if (tmp == (10 + '0'))
-		tmp = (t.xx == 1) ? 'A' : 'a';
-	else if (tmp == (11 + '0'))
-		tmp = (t.xx == 1) ? 'B' : 'b';
-	else if (tmp == (12 + '0'))
-		tmp = (t.xx == 1) ? 'C' : 'c';
-	else if (tmp == (13 + '0'))
-		tmp = (t.xx == 1) ? 'D' : 'd';
-	else if (tmp == (14 + '0'))
-		tmp = (t.xx == 1) ? 'E' : 'e';
-	else if (tmp == (15 + '0'))
-		tmp = (t.xx == 1) ? 'F' : 'f';
+		ft_len_hex(x / 16);
 	t.hex_len_count++;
 	return (t.hex_len_count);
 }
@@ -88,7 +73,7 @@ void			ft_print_pointer(va_list ap)
 
 	j = 0;
 	p = va_arg(ap, unsigned long);
-	lenght = ft_xtoi_len(p);
+	lenght = ft_len_hex(p);
 	if (!t.width)
 		ft_print_0x_p(p);
 	else if (!t.minus)

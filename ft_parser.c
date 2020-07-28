@@ -6,13 +6,13 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:00 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 13:54:48 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/28 13:54:49 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_type_parser(const char *format, int *i)
+static void		ft_type_parser(const char *format, int *i)
 {
 	if (!t.type && (ft_strchr("cspdiuxX%", format[*i])))
 		t.type = (format[*i]);
@@ -24,7 +24,7 @@ void		ft_type_parser(const char *format, int *i)
 	}
 }
 
-void		ft_prec_parser(const char *format, va_list ap, int *i)
+static void		ft_prec_parser(const char *format, va_list ap, int *i)
 {
 	if (!t.prec && format[*i] == '.')
 	{
@@ -36,7 +36,7 @@ void		ft_prec_parser(const char *format, va_list ap, int *i)
 	}
 }
 
-void		ft_width_parser(const char *format, va_list ap, int *i)
+static void		ft_width_parser(const char *format, va_list ap, int *i)
 {
 	if (format[*i] == '*' && !t.width && !t.prec && !t.point)
 		t.width = va_arg(ap, int);
@@ -49,7 +49,7 @@ void		ft_width_parser(const char *format, va_list ap, int *i)
 	}
 }
 
-void		ft_flags_parser(const char *format, int *i)
+static void		ft_flags_parser(const char *format, int *i)
 {
 	if (format[*i] == '-' && !t.width)
 		t.minus = 1;
@@ -57,7 +57,7 @@ void		ft_flags_parser(const char *format, int *i)
 		t.zero = 1;
 }
 
-void		ft_parser(const char *format, va_list ap, int *i)
+void			ft_parser(const char *format, va_list ap, int *i)
 {
 	(*i)++;
 	while (format[*i] != '\0' && !t.type)

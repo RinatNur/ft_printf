@@ -6,13 +6,13 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:26 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 13:54:49 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/28 18:50:12 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_pr_sp_and_zero_xx(unsigned int num, int len, char sym, int flag)
+static void		ft_pr_sp_zero_xx(unsigned int num, int len, char sym, int flag)
 {
 	t.zero = (t.point == 1) ? 0 : t.zero;
 	if (t.zero == 1)
@@ -25,7 +25,7 @@ void		ft_pr_sp_and_zero_xx(unsigned int num, int len, char sym, int flag)
 		ft_xtoi(num);
 }
 
-int			ft_num_len_un(int num, int div)
+static int		ft_num_len_un(int num, int div)
 {
 	int		len;
 
@@ -35,7 +35,7 @@ int			ft_num_len_un(int num, int div)
 	return (len);
 }
 
-void		ft_print_xx(va_list ap)
+void			ft_print_xx(va_list ap)
 {
 	unsigned int		u;
 	int					j;
@@ -48,17 +48,17 @@ void		ft_print_xx(va_list ap)
 	if (!t.width && (!t.prec || t.prec <= lenght))
 		ft_xtoi(u);
 	else if (!t.minus && (!t.prec || (t.prec <= lenght)))
-		ft_pr_sp_and_zero_xx(u, lenght, ' ', 2);
+		ft_pr_sp_zero_xx(u, lenght, ' ', 2);
 	else if (t.minus && (!t.prec || t.prec <= lenght))
-		ft_pr_sp_and_zero_xx(u, lenght, ' ', 1);
+		ft_pr_sp_zero_xx(u, lenght, ' ', 1);
 	else if (t.prec > lenght && !t.minus)
 	{
-		ft_pr_sp_and_zero_xx(u, t.prec, ' ', 0);
-		ft_pr_sp_and_zero_xx(u, lenght - 1, '0', 2);
+		ft_pr_sp_zero_xx(u, t.prec, ' ', 0);
+		ft_pr_sp_zero_xx(u, lenght - 1, '0', 2);
 	}
 	else if (t.prec > lenght && t.minus)
 	{
-		ft_pr_sp_and_zero_xx(u, ((t.width - t.prec) + lenght), '0', 2);
-		ft_pr_sp_and_zero_xx(u, lenght - 1, ' ', 0);
+		ft_pr_sp_zero_xx(u, ((t.width - t.prec) + lenght), '0', 2);
+		ft_pr_sp_zero_xx(u, lenght - 1, ' ', 0);
 	}
 }

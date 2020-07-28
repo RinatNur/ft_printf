@@ -6,13 +6,13 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 17:02:39 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 13:54:48 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/28 18:46:54 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_struct_zero(void)
+static void		ft_struct_zero(void)
 {
 	t.minus = 0;
 	t.zero = 0;
@@ -28,7 +28,7 @@ void		ft_struct_zero(void)
 	t.type = '\0';
 }
 
-void		ft_check_type(va_list ap)
+static void		ft_check_type(va_list ap)
 {
 	if (t.type == '%')
 		ft_print_percent();
@@ -46,7 +46,7 @@ void		ft_check_type(va_list ap)
 		ft_print_xx(ap);
 }
 
-int			ft_printf(const char *format, ...)
+int				ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	int			i;

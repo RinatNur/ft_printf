@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:43 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 13:54:48 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/28 18:33:24 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,6 @@ char		*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)(s + i));
 	return (NULL);
-}
-
-size_t		ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
 }
 
 int			ft_isdigit(int c)
