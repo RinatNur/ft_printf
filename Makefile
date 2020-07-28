@@ -6,14 +6,14 @@
 #    By: jheat <jheat@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/26 12:02:44 by jheat             #+#    #+#              #
-#    Updated: 2020/07/28 13:54:48 by jheat            ###   ########.fr        #
+#    Updated: 2020/07/28 16:16:18 by jheat            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-LIST  =	ft_parser.c ft_print_cis.c ft_print_pointer.c ft_printf.c libft.c\
-		ft_print_unsigned.c ft_print_xx.c
+LIST  =	ft_parser.c ft_print_int.c ft_print_pointer.c ft_printf.c libft.c\
+		ft_print_unsigned.c ft_print_xx.c ft_print_char_per.c ft_print_string.c
 
 OBJ = $(patsubst %.c,%.o,$(LIST))
 

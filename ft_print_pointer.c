@@ -6,13 +6,13 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:05:47 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 14:03:22 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/28 15:55:04 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			ft_xtoi(unsigned long x)
+int				ft_xtoi(unsigned long x)
 {
 	char		tmp;
 
@@ -41,7 +41,7 @@ int			ft_xtoi(unsigned long x)
 	return (0);
 }
 
-int			ft_xtoi_len(unsigned long x)
+int				ft_xtoi_len(unsigned long x)
 {
 	char		tmp;
 
@@ -64,7 +64,7 @@ int			ft_xtoi_len(unsigned long x)
 	return (t.hex_len_count);
 }
 
-int			ft_num_len(int num, int div)
+int				ft_num_len(int num, int div)
 {
 	int		len;
 
@@ -74,7 +74,13 @@ int			ft_num_len(int num, int div)
 	return (len);
 }
 
-void		ft_print_pointer(va_list ap)
+static void		ft_print_0x_p(unsigned long p)
+{
+	t.count += write(1, "0x", 2);
+	ft_xtoi(p);
+}
+
+void			ft_print_pointer(va_list ap)
 {
 	unsigned long		p;
 	int					j;
@@ -84,21 +90,16 @@ void		ft_print_pointer(va_list ap)
 	p = va_arg(ap, unsigned long);
 	lenght = ft_xtoi_len(p);
 	if (!t.width)
-	{
-		t.count += write(1, "0x", 2);
-		ft_xtoi(p);
-	}
+		ft_print_0x_p(p);
 	else if (!t.minus)
 	{
 		while (j++ < (t.width - (lenght + 2)))
 			t.count += write(1, " ", 1);
-		t.count += write(1, "0x", 2);
-		ft_xtoi(p);
+		ft_print_0x_p(p);
 	}
 	else if (t.minus)
 	{
-		t.count += write(1, "0x", 2);
-		ft_xtoi(p);
+		ft_print_0x_p(p);
 		while (j++ < (t.width - (lenght + 2)))
 			t.count += write(1, " ", 1);
 	}
