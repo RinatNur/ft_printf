@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:00 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/30 14:37:04 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/30 16:38:07 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ static void		ft_prec_parser(const char *format, va_list ap, int *i)
 	if (t.prec == -1 && format[*i] == '.')
 	{
 		t.point = 1;
-
 		if ('0' <= format[(*i) + 1] && format[(*i) + 1] <= '9')
 			t.prec = ft_atoi(&format[++(*i)]);
 		else if (format[(*i) + 1] == '*')
 		{
 			t.prec = va_arg(ap, int);
-			if (t.prec < 0)// <=
+			if (t.prec < 0)
 			{
 				t.prec = -1;
 				t.flag = 1;
@@ -44,12 +43,12 @@ static void		ft_prec_parser(const char *format, va_list ap, int *i)
 		else
 			t.prec = 0;
 	}
-
 }
 
 static void		ft_width_parser(const char *format, va_list ap, int *i)
 {
-	if (format[*i] == '*' && !t.width && t.prec == -1 && !t.point && t.flag != 1)
+	if (format[*i] == '*' && !t.width && t.prec == -1 &&
+								!t.point && t.flag != 1)
 		t.width = va_arg(ap, int);
 	if (!t.width && t.prec == -1 && ('1' <= format[*i] && format[*i] <= '9'))
 		t.width = ft_atoi(&format[*i]);

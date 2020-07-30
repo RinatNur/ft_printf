@@ -28,7 +28,7 @@ struct		s_format
 	int		point;
 	char	type;
 	int		count;
-	int 	flag;
+	int		flag;
 	int		xx;
 	int		prec_minus;
 	int		int_minus;

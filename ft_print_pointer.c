@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:05:47 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 20:10:32 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/30 16:29:02 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int				ft_num_len(int num, int div)
 static void		ft_print_0x_p(unsigned long p)
 {
 	t.count += write(1, "0x", 2);
-	ft_xtoi(p);
+	if (!(p == 0 && t.prec == 0))
+		ft_xtoi(p);
 }
 
 void			ft_print_pointer(va_list ap)
@@ -74,6 +75,8 @@ void			ft_print_pointer(va_list ap)
 	j = 0;
 	p = va_arg(ap, unsigned long);
 	lenght = ft_len_hex(p);
+	if (p == 0 && t.prec == 0)
+		lenght = 0;
 	if (!t.width)
 		ft_print_0x_p(p);
 	else if (!t.minus)

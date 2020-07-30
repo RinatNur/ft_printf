@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:20 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/30 15:35:07 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/30 16:47:29 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,17 @@ static void		ft_pr_sp_zero_un(unsigned int num, int len, char sym, int flag)
 	t.zero = (t.point == 1 && t.prec != -1) ? 0 : t.zero;
 	if (t.zero == 1)
 		sym = '0';
-	if ((flag == 1 && (t.prec >= 0 || t.prec == -1)) && !(t.prec == 0 && num == 0))
+	if ((flag == 1 && (t.prec >= 0 || t.prec == -1)) &&
+							!(t.prec == 0 && num == 0))
 		ft_putnbr_un(num);
 	while (t.j_print++ < (t.width - len))
 		t.count += write(1, &sym, 1);
-	if ((flag == 2 && (t.prec >= 0 || t.prec == -1)) && !(t.prec == 0 && num == 0))
+	if ((flag == 2 && (t.prec >= 0 || t.prec == -1)) &&
+							!(t.prec == 0 && num == 0))
 		ft_putnbr_un(num);
 }
 
-static int				ft_num_len_un(unsigned int num, int div)
+static int		ft_num_len_un(unsigned int num, int div)
 {
 	int		len;
 
@@ -49,18 +51,12 @@ static int				ft_num_len_un(unsigned int num, int div)
 void			ft_print_unsigned(va_list ap)
 {
 	unsigned int		num;
-	int		lenght;
+	int					lenght;
 
-//	if (t.flag == 1)
-//		t.point = 0;
-//	if (t.flag == 1 && t.zero == 1)  //  добавил условие
-//		t.zero = 0;
 	num = va_arg(ap, int);
 	lenght = ft_num_len_un(num, 10);
 	if (num == 0 && t.prec == 0)
 		lenght = 0;
-//	if (t.point && t.prec == -1)
-//		lenght = 0;
 	t.width = (t.prec > t.width) ? t.prec : t.width;
 	if (!t.minus && (t.prec == -1 || t.prec <= lenght))
 		ft_pr_sp_zero_un(num, lenght, ' ', 2);
