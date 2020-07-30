@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 17:22:10 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 18:46:54 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/29 21:59:27 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ struct		s_format
 	int		point;
 	char	type;
 	int		count;
+	int 	flag;
 	int		xx;
 	int		prec_minus;
 	int		int_minus;
-	int		prec_less_lenght;
 	int		j_print;
 	int		hex_len_count;
 }					t;

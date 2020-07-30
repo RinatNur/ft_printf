@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:06:26 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 18:50:12 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/30 15:35:07 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		ft_pr_sp_zero_xx(unsigned int num, int len, char sym, int flag)
 {
-	t.zero = (t.point == 1) ? 0 : t.zero;
+	t.zero = (t.point == 1 && t.prec != -1) ? 0 : t.zero;
 	if (t.zero == 1)
 		sym = '0';
 	if (flag == 1)
@@ -25,7 +25,7 @@ static void		ft_pr_sp_zero_xx(unsigned int num, int len, char sym, int flag)
 		ft_xtoi(num);
 }
 
-static int		ft_num_len_un(int num, int div)
+static int		ft_num_len_xx(unsigned int num, int div)
 {
 	int		len;
 
@@ -43,7 +43,7 @@ void			ft_print_xx(va_list ap)
 
 	j = 0;
 	u = va_arg(ap, unsigned int);
-	lenght = ft_num_len_un(u, 16);
+	lenght = ft_num_len_xx(u, 16);
 	t.width = (t.prec > t.width) ? t.prec : t.width;
 	if (!t.width && (!t.prec || t.prec <= lenght))
 		ft_xtoi(u);

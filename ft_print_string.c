@@ -6,7 +6,7 @@
 /*   By: jheat <jheat@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/28 16:13:46 by jheat             #+#    #+#             */
-/*   Updated: 2020/07/28 18:33:24 by jheat            ###   ########.fr       */
+/*   Updated: 2020/07/30 14:40:35 by jheat            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ static int		ft_string_checker(char **str, va_list ap)
 		t.prec = (t.prec < 0) ? 6 : t.prec;
 	}
 	lenght = ft_strlen(*str);
-	if (t.prec == 0 && !t.prec_minus && t.point == 1 && nl != *str)
+	if ((t.prec == -1 && !t.prec_minus && t.point == 1 && nl != *str)) // || t.flag == 1
 		lenght = 0;
-	else if (t.point == 1 && t.prec < lenght && !t.prec_minus)
+	if (t.point == 1 && t.prec < lenght && !t.prec_minus)
 		lenght = t.prec;
+//	if (t.flag == 1 && t.prec == 0 && *str != nl)
+//		lenght = 0;
 	if (t.width < lenght)
 		t.width = lenght;
 	return (lenght);
@@ -53,17 +55,17 @@ void			ft_print_string(va_list ap)
 	int				j;
 
 	lenght = ft_string_checker(&str, ap);
-	if ((j = 0) || (((!t.width && !t.minus) && (!t.prec || t.prec >= lenght))))
+	if ((j = 0) || (((!t.width && !t.minus) && (t.prec == -1 || t.prec >= lenght))))
 		while (j++ < lenght)
 			t.count += write(1, &(*str++), 1);
-	if (t.width && !t.minus && (!t.prec || t.prec >= lenght))
+	if (t.width && !t.minus && (t.prec == -1 || t.prec >= lenght))
 	{
 		while (j++ < (t.width - lenght))
 			t.count += write(1, " ", 1);
 		while (*str && (j++ <= t.width))
 			t.count += write(1, &(*str++), 1);
 	}
-	if (t.width && t.minus && (!t.prec || t.prec >= lenght))
+	if (t.width && t.minus && (t.prec == -1 || t.prec >= lenght))
 	{
 		while (*str && (j < lenght))
 		{
